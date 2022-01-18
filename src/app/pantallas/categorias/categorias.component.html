@@ -1,0 +1,78 @@
+<div class="card">
+    <div class="card-header">
+        <strong>Registrar categoría</strong>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="formCategoria" action="" method="post" class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="hf-email">Categoría</label>
+                <div class="col-md-9">
+                    <input formControlName="nombre" type="email" id="hf-email" name="hf-email" class="form-control" placeholder="Escribe el nombre" autocomplete="email">
+                    <span class="help-block">Nombre de la categoría que se desplegará en la App</span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <button (click)="submitForm()" type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Guardar</button>
+        <button (click)="resetForm()" type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Cancelar</button>
+    </div>
+</div>
+
+<div class="card">
+
+    <div class="card-header">
+        <i class="fa fa-align-justify"></i> Simple Table
+    </div>
+
+    <div class="card-body">
+
+        <form action="" method="post" class="form-horizontal">
+            <div class="form-group row">
+                <div class="col-md-9">
+                    <input type="email" id="hf-email" name="hf-email" class="form-control" placeholder="Buscar categoria por nombre" autocomplete="email">
+                </div>
+            </div>
+        </form>
+
+        <table class="table">
+        <thead>
+            <tr>
+            <th>Nombre</th>
+            <th>Fecha de registro</th>
+            <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let categoria of categorias">
+                <td>{{ categoria.nombre }}</td>
+                <td>{{ categoria.fecha_registro }}</td>
+                <td>
+                    <div class="row">
+                        <i (click)="editarCategoria(categoria);" class="acciones fa fa-edit fa-lg mt-4"></i>
+                        <i (click)="modalEliminar(templateModal); setCategoriaS(categoria);" class="acciones fa fa-trash fa-lg mt-4"></i>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+        
+    </div>
+</div>
+
+<!-- Modal -->
+<ng-template #templateModal>
+   <div class="modal-header">
+      <h4 class="modal-title pull-left">Eliminar categoría</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+         <span aria-hidden="true">×</span>
+      </button>
+   </div>
+   <div class="modal-body">
+      ¿Seguro que desea eliminar esta categoría?
+   </div>
+   <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarCategoria()">Eliminar</button>
+   </div>
+</ng-template>

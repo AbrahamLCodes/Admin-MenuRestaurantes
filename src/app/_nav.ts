@@ -29,6 +29,21 @@ export const navItems: INavData[] = [
     name: 'Components'
   },
   {
+    name: "Categorias",
+    url: "/restaurante/categorias",
+    icon: "icon-calculator"
+  },
+  {
+    name: "Productos",
+    url: "/restaurante/productos",
+    icon: "icon-puzzle"
+  },
+  {
+    name: "Sucursales",
+    url: "/restaurante/sucursales",
+    icon: "icon-cursor"
+  },
+  {
     name: 'Base',
     url: '/base',
     icon: 'icon-puzzle',
