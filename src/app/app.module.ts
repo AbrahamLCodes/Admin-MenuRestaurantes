@@ -45,6 +45,7 @@ import { ChartsModule } from 'ng2-charts';
 import { ProductosComponent } from './pantallas/productos/productos.component';
 import { CategoriasComponent } from './pantallas/categorias/categorias.component';
 import { SucursalesComponent } from './pantallas/sucursales/sucursales.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { SucursalesComponent } from './pantallas/sucursales/sucursales.component
     ChartsModule,
     IconModule,
     IconSetModule.forRoot(),
+    NgxSelectModule
   ],
   declarations: [
     AppComponent,

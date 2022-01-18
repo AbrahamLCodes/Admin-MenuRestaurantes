@@ -1,1 +1,145 @@
-<p>productos works!</p>
+<div *ngIf="nuevo" class="card formularios">
+    <div class="card-header">
+        <strong>Registrar producto</strong>
+    </div>
+    <div class="card-body">
+        <form action="" method="post" class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="hf-email">Esta información será desplegada en la App</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control inputs" placeholder="Nombre">
+
+                    <textarea rows="9" class="form-control inputs" placeholder="Descripción"></textarea>
+
+                    <input type="text" class="form-control inputs" placeholder="Precio">
+
+                    <ngx-select style="margin-top: 20px;" [formControl]="ngxControl" [allowClear]="true"
+                        [defaultValue]="doNgxDefault()" [items]="items" placeholder="Sucursales"
+                        (typed)="inputTyped('ngx-select', $event)" (focus)="doFocus()" (blur)="doBlur()"
+                        (open)="doOpen()" (close)="doClose()" (select)="doSelect($event)" (remove)="doRemove($event)"
+                        (selectionChanges)="doSelectOptions($event)" [multiple]="true">
+                    </ngx-select>
+
+                    <br>
+
+                    <ngx-select style="margin-top: 20px;" [formControl]="categoriangxControl" [allowClear]="true"
+                        [defaultValue]="categoriadoNgxDefault()" [items]="categorias" placeholder="Categorías"
+                        (typed)="inputTyped('ngx-select', $event)" (focus)="categoriadoFocus()"
+                        (blur)="categoriadoBlur()" (open)="categoriadoOpen()" (close)="categoriadoClose()"
+                        (select)="categoriadoSelect($event)" (remove)="categoriadoRemove($event)"
+                        (selectionChanges)="categoriadoSelectOptions($event)" [multiple]="true">
+                    </ngx-select>
+
+                    <div class="inputs d-flex flex-row">
+                        <label class="toggler-label">Promoción: </label>
+                        <label class="switch switch-label switch-success">
+                            <input type="checkbox" class="switch-input" checked>
+                            <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+                        </label>
+                    </div>
+
+                    <input type="text" class="form-control inputs" placeholder="Precio de promoción">
+
+                    <div class="inputs d-flex flex-row">
+                        <label class="toggler-label">Subir imágen: </label>
+                        <label class="switch switch-label switch-success">
+                            <input type="checkbox" class="switch-input" checked>
+                            <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+                        </label>
+                    </div>
+
+                    <ngx-dropzone (change)="onSelect($event)">
+                        <ngx-dropzone-label>Arrastra la foto o haz click para subirla</ngx-dropzone-label>
+                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files"
+                            [file]="f" [removable]="true" (removed)="onRemove(f)">
+                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                        </ngx-dropzone-image-preview>
+                    </ngx-dropzone>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Guardar</button>
+        <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Cancelar</button>
+    </div>
+</div>
+
+<div class="card formularios">
+
+    <div class="card-header">
+        <i class="fa fa-align-justify"></i> Simple Table
+    </div>
+
+    <div class="card-body">
+
+        <form action="" method="post" class="form-horizontal">
+            
+            <button class="btn btn-success btn-nuevo" (click)="nuevo = true;">Crear nuevo</button>
+            
+            <div class="form-group row">
+                <div class="col-md-9">
+                    <input type="email" id="hf-email" name="hf-email" class="form-control"
+                        placeholder="Buscar categoria por nombre" autocomplete="email">
+
+                </div>
+            </div>
+        </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Promocion</th>
+                    <th>Tiene imagen</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let producto of productos  ">
+                    <td>{{ producto.nombre }}</td>
+                    <td>${{ producto.precio }}</td>
+                    <td>
+                        <label class="switch switch-label switch-success">
+                            <input type="checkbox" class="switch-input" checked>
+                            <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="switch switch-label switch-success">
+                            <input type="checkbox" class="switch-input" checked>
+                            <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <i (click)="editarCategoria(categoria);" class="acciones fa fa-eye fa-lg mt-4"></i>
+                            <i (click)="editarCategoria(categoria);" class="acciones fa fa-edit fa-lg mt-4"></i>
+                            <i (click)="modalEliminar(templateModal); setCategoriaS(categoria);"
+                                class="acciones fa fa-trash fa-lg mt-4"></i>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<ng-template #templateModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Eliminar categoría</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        ¿Seguro que desea eliminar esta categoría?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarCategoria()">Eliminar</button>
+    </div>
+</ng-template>

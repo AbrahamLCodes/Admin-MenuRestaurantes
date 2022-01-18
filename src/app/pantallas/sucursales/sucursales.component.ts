@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { INgxSelectOptions } from 'ngx-select-ex';
 
 @Component({
   selector: 'app-sucursales',
@@ -11,5 +12,4 @@ export class SucursalesComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
